@@ -19,6 +19,7 @@ export default function Layout({children}: any) {
         <MainContainer className={""}>
             <Header/>
             <ContentsContainer>
+                <LeftMenu/>
                 <ErrorBoundary
                     fallback={<div>wrong</div>}
                     onReset={(details) => {
