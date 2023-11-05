@@ -3,11 +3,12 @@ import ReactDOM from 'react-dom/client';
 import {createGlobalStyle} from "styled-components";
 import "./index.css";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import RootPage from "./sample/rootpage";
+import RootPage, {action} from "./sample/rootpage";
 import DefaultError from "./error/errorx";
 import Sample from "./sample";
 import Layout from "./layout/Layout";
 import AnotherPage from "./another";
+import loader from "./loader";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -73,7 +74,13 @@ const router = createBrowserRouter([
                 <RootPage/>
             </Layout>
         ),
-        errorElement: <DefaultError/>,
+        errorElement: (
+            <Layout>
+                <DefaultError/>
+            </Layout>
+        ),
+        loader: loader, // get 호출시 동작.
+        action: action,
         children: [
             {
                 path: "sample/:sampleId",

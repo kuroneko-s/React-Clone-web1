@@ -14,7 +14,6 @@ const ContentsContainer = styled.div`
 `;
 
 export default function Layout({children}: any) {
-    console.log(children)
     return (
         <MainContainer className={""}>
             <Header/>
