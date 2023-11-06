@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom/client';
 import {createGlobalStyle} from "styled-components";
 import "./index.css";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import RootPage, {action} from "./sample/rootpage";
+import RootIndex, {action as rootAction, loader as rootLoader} from "./root";
 import DefaultError from "./error/errorx";
-import Sample from "./sample";
+import RootDetail, {loader as detailLoader} from "./root/detail";
 import Layout from "./layout/Layout";
 import AnotherPage from "./another";
-import loader from "./loader";
+import RootEdit from "./root/edit";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -71,7 +71,7 @@ const router = createBrowserRouter([
         path: "/",
         element: (
             <Layout>
-                <RootPage/>
+                <RootIndex/>
             </Layout>
         ),
         errorElement: (
@@ -79,16 +79,25 @@ const router = createBrowserRouter([
                 <DefaultError/>
             </Layout>
         ),
-        loader: loader, // get 호출시 동작.
-        action: action,
+        loader: rootLoader, // get 호출시 동작.
+        action: rootAction,
         children: [
             {
-                path: "sample/:sampleId",
+                path: ":detailId",
                 element: (
-                    <Sample/>
-                )
-            }
+                    <RootDetail/>
+                ),
+                loader: detailLoader
+            },
         ]
+    },
+    {
+        path: "edit",
+        element: (
+            <Layout>
+                <RootEdit />
+            </Layout>
+        )
     },
     {
         path: "/another/:id",
@@ -96,7 +105,7 @@ const router = createBrowserRouter([
             <Layout>
                 <AnotherPage/>
             </Layout>
-        )
+        ),
     }
 ])
 
